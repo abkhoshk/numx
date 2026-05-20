@@ -24,8 +24,8 @@ void numx_test_poly(void);
 void numx_test_ode(void);
 
 /* Phase 2 suite declarations:                                        */
-/* void numx_test_signal(void);       */
-/* void numx_test_fft(void);          */
+void numx_test_signal(void);
+void numx_test_fft(void);
 
 /* Phase 3 suite declarations:                                        */
 /* void numx_test_autodiff(void);           */
@@ -51,8 +51,8 @@ int main(void)
     numx_test_ode();
 
     /* Phase 2: */
-    /* numx_test_signal(); */
-    /* numx_test_fft();    */
+    numx_test_signal();
+    numx_test_fft();
 
     /* Phase 3: */
     /* numx_test_autodiff();           */

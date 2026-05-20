@@ -50,7 +50,7 @@
 /* ── Signal processing ─────────────────────────────────────────────── */
 
 #ifndef NUMX_MAX_FFT_SIZE
-#define NUMX_MAX_FFT_SIZE 1024 /* max FFT length (must be power-of-2)*/
+#define NUMX_MAX_FFT_SIZE 512  /* max FFT length (must be power-of-2) */
 #endif
 
 #ifndef NUMX_MAX_FIR_TAPS

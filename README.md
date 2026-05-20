@@ -47,8 +47,8 @@ Every function is reentrant, allocation-free, and returns a typed status code. T
 | [**interpolate**](docs/algorithms/interpolate.md) | linear, cubic spline, chebyshev | ✅ complete |
 | [**poly**](docs/algorithms/poly.md) | eval (Horner), roots (Newton + deflation) | ✅ complete |
 | [**ode**](docs/algorithms/ode.md) | rk4, rk45 (adaptive) | ✅ complete |
-| **signal** | windows, FIR, IIR, convolve, correlate, peaks, EMA | 🔧 planned |
-| **fft** | Cooley-Tukey f32, Q15, IFFT | 🔧 planned |
+| [**signal**](docs/algorithms/signal.md) | windows, FIR, IIR, convolve, correlate, peaks, EMA | ✅ complete |
+| [**fft**](docs/algorithms/fft.md) | Cooley-Tukey f32, Q15, IFFT, magnitude | ✅ complete |
 | **autodiff** | forward-mode (dual numbers), reverse-mode (static tape) | 🔧 planned |
 | **compressed_sensing** | OMP, ISTA | 🔧 planned |
 | **sketch** | randomized SVD (Halko-Martinsson-Tropp) | 🔧 planned |
