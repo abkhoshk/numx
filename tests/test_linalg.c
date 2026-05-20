@@ -270,14 +270,14 @@ void test_mat_mul_identity(void)
 /* L4 */
 void test_mat_mul_dim_mismatch(void)
 {
-    numx_real_t A[6], B[4], C[4];
+    numx_real_t A[6] = {0}, B[4] = {0}, C[4] = {0};
     /* ca=3 != rb=2 */
     TEST_ASSERT_EQUAL(NUMX_ERR_INVALID_ARG, numx_mat_mul(A, 2, 3, B, 2, 2, C));
 }
 
 void test_mat_mul_null_A(void)
 {
-    numx_real_t B[4], C[4];
+    numx_real_t B[4] = {0}, C[4] = {0};
     TEST_ASSERT_EQUAL(NUMX_ERR_NULL_PTR, numx_mat_mul(NULL, 2, 2, B, 2, 2, C));
 }
 
@@ -484,14 +484,14 @@ void test_lu_decompose_null_A(void)
 
 void test_lu_decompose_null_LU(void)
 {
-    numx_real_t A[4];
-    numx_idx_t pivot[2];
+    numx_real_t A[4] = {0};
+    numx_idx_t pivot[2] = {0};
     TEST_ASSERT_EQUAL(NUMX_ERR_NULL_PTR, numx_lu_decompose(A, 2, NULL, pivot));
 }
 
 void test_lu_solve_null_LU(void)
 {
-    numx_real_t b[2], x[2];
+    numx_real_t b[2] = {0}, x[2] = {0};
     numx_idx_t pivot[2] = {0, 1};
     TEST_ASSERT_EQUAL(NUMX_ERR_NULL_PTR, numx_lu_solve(NULL, pivot, 2, b, x));
 }
