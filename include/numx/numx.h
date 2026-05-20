@@ -25,8 +25,8 @@
 #include "ode.h"
 
 /* Phase 2 — Signal Processing */
-/* #include "signal.h"       */
-/* #include "fft.h"          */
+#include "signal.h"
+#include "fft.h"
 
 /* Phase 3 — Unicorn Algorithms */
 /* #include "autodiff.h"           */

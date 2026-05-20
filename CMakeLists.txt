@@ -27,8 +27,8 @@ set(NUMX_SOURCES
     src/poly.c
     src/ode.c
     # Phase 2 — Signal Processing:
-    # src/signal.c
-    # src/fft.c
+    src/signal.c
+    src/fft.c
     # Phase 3 — Unicorn Algorithms:
     # src/autodiff.c
     # src/compressed_sensing.c
@@ -56,8 +56,8 @@ set(TEST_SOURCES
     tests/test_poly.c
     tests/test_ode.c
     # Phase 2 tests:
-    # tests/test_signal.c
-    # tests/test_fft.c
+    tests/test_signal.c
+    tests/test_fft.c
     # Phase 3 tests:
     # tests/test_autodiff.c
     # tests/test_compressed_sensing.c
