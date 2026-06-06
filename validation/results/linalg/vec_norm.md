@@ -85,8 +85,8 @@
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| vec_norm L2 n=64 | 10,000 | — | — |
-| vec_norm L1 n=64 | 10,000 | — | — |
+| vec_norm L2 n=64 | 10,000 | 119,700 µs | 11,970 ns |
+| vec_norm L1 n=64 | 10,000 | 146,901 µs | 14,690 ns |
 
 **RESULTS: 9 PASS / 0 FAIL / 9 TOTAL**
 

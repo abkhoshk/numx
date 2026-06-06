@@ -99,8 +99,8 @@
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| lu_decompose 4x4 | 10,000 | — | — |
-| lu_solve 4x4 (factored) | 10,000 | — | — |
+| lu_decompose 4x4 | 10,000 | 104,666 µs | 10,466 ns |
+| lu_solve 4x4 (factored) | 10,000 | 44,181 µs | 4,418 ns |
 
 **RESULTS: 15 PASS / 0 FAIL / 15 TOTAL**
 

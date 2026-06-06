@@ -83,7 +83,7 @@
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| mat_det 4x4 | 10,000 | — | — |
+| mat_det 4x4 | 10,000 | 52,364 µs | 5,236 ns |
 
 **RESULTS: 8 PASS / 0 FAIL / 8 TOTAL**
 

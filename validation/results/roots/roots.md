@@ -123,10 +123,10 @@
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| root_bisect x²-4 tol=1e-5 | 1,000 | — | — |
-| root_newton x²-4 tol=1e-5 | 1,000 | — | — |
-| root_brent x²-4 tol=1e-5 | 1,000 | — | — |
-| root_brent x³-x tol=1e-5 | 1,000 | — | — |
+| root_bisect x²-4 tol=1e-5 | 1,000 | 11,819 µs | 11,819 ns |
+| root_newton x²-4 tol=1e-5 | 1,000 | 5,039 µs | 5,039 ns |
+| root_brent x²-4 tol=1e-5 | 1,000 | 19,858 µs | 19,858 ns |
+| root_brent x³-x tol=1e-5 | 1,000 | 18,708 µs | 18,708 ns |
 
 ### Precision vs reference
 

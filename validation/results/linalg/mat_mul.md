@@ -87,10 +87,10 @@
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| mat_mul 4x4 | 10,000 | — | — |
-| mat_mul 8x8 | 100 | — | — |
-| mat_transpose 8x8 | 10,000 | — | — |
-| mat_transpose_sq 8x8 | 10,000 | — | — |
+| mat_mul 4x4 | 10,000 | 112,629 µs | 11,262 ns |
+| mat_mul 8x8 | 100 | 7,881 µs | 78,810 ns |
+| mat_transpose 8x8 | 10,000 | 73,511 µs | 7,351 ns |
+| mat_transpose_sq 8x8 | 10,000 | 35,418 µs | 3,541 ns |
 
 **RESULTS: 16 PASS / 0 FAIL / 16 TOTAL**
 

@@ -126,9 +126,9 @@
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| poly_eval degree=8 | 10,000 | — | — |
-| poly_eval degree=3 | 10,000 | — | — |
-| poly_roots degree=3 tol=1e-4 | 100 | — | — |
+| poly_eval degree=8 | 10,000 | 6,884 µs | 688 ns |
+| poly_eval degree=3 | 10,000 | 4,075 µs | 407 ns |
+| poly_roots degree=3 tol=1e-4 | 100 | 2,035 µs | 20,350 ns |
 
 ### Precision vs reference
 

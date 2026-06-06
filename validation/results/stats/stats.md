@@ -147,12 +147,12 @@
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| stats_mean n=128 | 10,000 | — | — |
-| stats_variance pop n=128 | 5,000 | — | — |
-| stats_variance sample n=128 | 5,000 | — | — |
-| stats_median n=128 | 1,000 | — | — |
-| stats_percentile p50 n=128 | 1,000 | — | — |
-| stats_percentile p95 n=128 | 1,000 | — | — |
+| stats_mean n=128 | 10,000 | 61,944 µs | 6,194 ns |
+| stats_variance pop n=128 | 5,000 | 347,803 µs | 69,560 ns |
+| stats_variance sample n=128 | 5,000 | 347,657 µs | 69,531 ns |
+| stats_median n=128 | 1,000 | 1,109,766 µs | 1,109,766 ns |
+| stats_percentile p50 n=128 | 1,000 | 555,790 µs | 555,790 ns |
+| stats_percentile p95 n=128 | 1,000 | 84,711 µs | 84,711 ns |
 
 **RESULTS: 37 PASS / 0 FAIL / 37 TOTAL**
 

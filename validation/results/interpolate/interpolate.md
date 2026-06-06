@@ -138,12 +138,12 @@
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| interp_linear n=16 | 5,000 | — | — |
-| interp_spline_cubic n=16 | 5,000 | — | — |
-| interp_spline_eval (precomp) | 5,000 | — | — |
-| interp_spline_precompute n=16 | 5,000 | — | — |
-| interp_chebyshev n=8 | 5,000 | — | — |
-| interp_chebyshev n=16 | 1,000 | — | — |
+| interp_linear n=16 | 5,000 | 6,907 µs | 1,381 ns |
+| interp_spline_cubic n=16 | 5,000 | 167,179 µs | 33,435 ns |
+| interp_spline_eval (precomp) | 5,000 | 12,395 µs | 2,479 ns |
+| interp_spline_precompute n=16 | 5,000 | 153,953 µs | 30,790 ns |
+| interp_chebyshev n=8 | 5,000 | 631,558 µs | 126,311 ns |
+| interp_chebyshev n=16 | 1,000 | 237,083 µs | 237,083 ns |
 
 ### Precision vs reference
 
