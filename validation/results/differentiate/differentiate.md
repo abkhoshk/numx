@@ -121,9 +121,9 @@ Identical values to x86-64 — confirms float32 cancellation is deterministic ac
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| diff_forward h=1e-3 | 10,000 | — | — |
-| diff_central h=1e-3 | 10,000 | — | — |
-| diff_richardson h=1e-3 | 10,000 | — | — |
+| diff_forward h=1e-3 | 10,000 | 8,644 µs | 864 ns |
+| diff_central h=1e-3 | 10,000 | 9,393 µs | 939 ns |
+| diff_richardson h=1e-3 | 10,000 | 21,410 µs | 2,141 ns |
 
 ### Precision vs reference
 

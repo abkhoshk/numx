@@ -87,7 +87,7 @@
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| vec_cross3 | 10,000 | — | — |
+| vec_cross3 | 10,000 | 3,324 µs | 332 ns |
 
 **RESULTS: 15 PASS / 0 FAIL / 15 TOTAL**
 

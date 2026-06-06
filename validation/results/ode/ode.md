@@ -125,10 +125,10 @@
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| ode_rk4 decay n=1 100-steps | 1,000 | — | — |
-| ode_rk4 harmonic n=2 100-steps | 1,000 | — | — |
-| ode_rk45 decay n=1 tol=1e-4 | 1,000 | — | — |
-| ode_rk45 harmonic n=2 tol=1e-4 | 1,000 | — | — |
+| ode_rk4 decay n=1 100-steps | 1,000 | 173,201 µs | 173,201 ns |
+| ode_rk4 harmonic n=2 100-steps | 1,000 | 274,568 µs | 274,568 ns |
+| ode_rk45 decay n=1 tol=1e-4 | 1,000 | 39,634 µs | 39,634 ns |
+| ode_rk45 harmonic n=2 tol=1e-4 | 1,000 | 63,362 µs | 63,362 ns |
 
 ### Precision vs reference
 

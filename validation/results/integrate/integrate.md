@@ -134,12 +134,12 @@
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| integrate_trap n=100 | 5,000 | — | — |
-| integrate_trap n=1000 | 1,000 | — | — |
-| integrate_simpson n=100 | 5,000 | — | — |
-| integrate_gauss npts=2 | 5,000 | — | — |
-| integrate_gauss npts=4 | 5,000 | — | — |
-| integrate_gauss npts=8 | 5,000 | — | — |
+| integrate_trap n=100 | 5,000 | 122,438 µs | 24,487 ns |
+| integrate_trap n=1000 | 1,000 | 238,439 µs | 238,439 ns |
+| integrate_simpson n=100 | 5,000 | 144,343 µs | 28,868 ns |
+| integrate_gauss npts=2 | 5,000 | 5,333 µs | 1,066 ns |
+| integrate_gauss npts=4 | 5,000 | 8,014 µs | 1,602 ns |
+| integrate_gauss npts=8 | 5,000 | 13,461 µs | 2,692 ns |
 
 ### Precision vs reference
 

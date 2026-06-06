@@ -39,8 +39,8 @@ Expected Sᵀ (in-place): [1,3,2,4]
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| mat_transpose 8x8 | 10,000 | — | — |
-| mat_transpose_sq 8x8 | 10,000 | — | — |
+| mat_transpose 8x8 | 10,000 | 73,511 µs | 7,351 ns |
+| mat_transpose_sq 8x8 | 10,000 | 35,418 µs | 3,541 ns |
 
 **RESULTS: 16 PASS / 0 FAIL / 16 TOTAL**
 

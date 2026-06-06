@@ -81,7 +81,7 @@
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| vec_dot n=64 | 10,000 | — | — |
+| vec_dot n=64 | 10,000 | 54,560 µs | 5,456 ns |
 
 **RESULTS: 11 PASS / 0 FAIL / 11 TOTAL**
 
