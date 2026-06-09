@@ -36,7 +36,7 @@ Covers: `numx_sketch_rsvd` — Halko-Martinsson-Tropp randomized SVD
 ---
 
 ## ARM64 — macOS 26.2 / Apple M4 Pro / Apple clang 21.0.0 / float32
-**Validator:** Erfan Jazeb Nikoo | **Date:** 2026-06-08 | **Commit:** d81b386
+**Validator:** Erfan Jazeb Nikoo | **Date:** 2026-06-09 | **Commit:** 2fc85d0
 
 ### Test cases
 
@@ -54,9 +54,9 @@ Covers: `numx_sketch_rsvd` — Halko-Martinsson-Tropp randomized SVD
 
 | Function | N | Total | Per call |
 |----------|---|-------|----------|
-| sketch_rsvd 16×16 rank=4 os=4 | 100 | 45,036 µs | 450,360 ns |
-| sketch_rsvd 32×32 rank=8 os=4 | 100 | 113,795 µs | 1,137,950 ns |
-| sketch_rsvd 64×64 rank=8 os=4 | 100 | 138,754 µs | 1,387,540 ns |
+| sketch_rsvd 16×16 rank=4 os=4 | 100 | 24,206 µs | 242,060 ns |
+| sketch_rsvd 32×32 rank=8 os=4 | 100 | 60,679 µs | 606,790 ns |
+| sketch_rsvd 64×64 rank=8 os=4 | 100 | 66,721 µs | 667,210 ns |
 
 **RESULTS: 5 PASS / 0 FAIL / 5 TOTAL**
 
