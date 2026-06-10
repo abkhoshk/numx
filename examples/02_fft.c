@@ -5,11 +5,12 @@
  * sample rate of 64 Hz), runs the FFT, computes the magnitude spectrum,
  * and identifies the peak bin.
  *
- * Note: signal generation uses <math.h>. The numx FFT itself has no such
- * dependency — this is normal user code wrapping the library.
+ * Note: signal generation uses cos() from <math.h>. The numx FFT itself has
+ * no such dependency; this is normal user code wrapping the library.
  */
 
 #include "numx/fft.h"
+#include "numx/numx.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -25,7 +26,7 @@ int main(void)
 
     /* cos(2*pi * 4 * n / N): 4 complete cycles over 64 samples */
     for (i = 0; i < N; i++) {
-        buf[2 * i]     = (numx_real_t)cos(2.0 * M_PI * 4.0 * i / N);
+        buf[2 * i]     = (numx_real_t)cos(2.0 * NUMX_PI * 4.0 * i / N);
         buf[2 * i + 1] = 0.0f;
     }
 
