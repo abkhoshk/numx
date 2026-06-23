@@ -49,7 +49,7 @@ Every function is reentrant, allocation-free, and returns a typed status code. T
 | [**autodiff**](docs/algorithms/autodiff.md) | forward-mode (dual numbers), reverse-mode (static tape) | ✅ complete |
 | [**compressed_sensing**](docs/algorithms/compressed_sensing.md) | OMP, ISTA | ✅ complete |
 | [**sketch**](docs/algorithms/sketch.md) | randomized SVD (Halko-Martinsson-Tropp) | ✅ complete |
-| **ntt** | Number Theoretic Transform (constant-time, Kyber/Dilithium params) | 🔧 planned |
+| [**ntt**](docs/algorithms/ntt.md) | Number Theoretic Transform (constant-time, Kyber/Dilithium params) | ✅ complete |
 
 ---
 
