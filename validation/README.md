@@ -59,6 +59,26 @@ validation/
     └── reference_phase1.py    ← numpy reference script
 ```
 
+Sibling directories at repo root (not under `validation/`):
+
+```
+benchmarks/
+├── bench_runner.c             ← Linux/macOS benchmark runner (Phase 1 & 2)
+├── bench_win.c                ← Windows benchmark runner (QueryPerformanceCounter, all 13 modules)
+└── esp32/
+    ├── bench_phase1.c         ← ESP32 Phase 1 timing
+    ├── bench_phase2.c         ← ESP32 Phase 2 timing
+    ├── bench_common.h
+    ├── bench_runner.c
+    ├── math_helpers.c / .h
+    └── CMakeLists.txt
+
+tests/
+├── x86/                       ← standalone float32 Unity build (own CMakeLists.txt)
+├── x64/                       ← standalone float64 Unity build (own CMakeLists.txt)
+└── esp32_tests/               ← ESP32 custom test framework (IDF component)
+```
+
 ---
 
 ## Phase 1 function inventory (30 functions)

@@ -103,7 +103,7 @@ add_test(NAME numx_x86 COMMAND numx_test_x86)
 
 # ── Windows performance benchmark (float32) ──────────────────────────────────
 add_executable(numx_bench_x86
-    ${CMAKE_CURRENT_SOURCE_DIR}/../bench_win.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../benchmarks/bench_win.c
 )
 target_include_directories(numx_bench_x86 PRIVATE ${NUMX_INC})
 if(UNIX)
