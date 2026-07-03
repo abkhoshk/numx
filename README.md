@@ -59,15 +59,22 @@ All results are device-run, per-formula values with measured error margins — n
 
 | Platform | Toolchain | Modules | Tests |
 |---|---|---|---|
-| x86-64 — Intel i7-13700H / Ubuntu 22.04 | gcc 11.4.0 -O2 / float32 | 13 / 13 | 300 / 300 ✅ |
-| ARM64 — Apple M4 Pro / macOS 26.2 | Apple clang 21.0.0 -O2 / float32 | 13 / 13 | 300 / 300 ✅ |
-| ARM64 — Apple M1 Pro / macOS 26.2 | Apple clang 17.0.0 -O2 / float32 | 13 / 13 | 300 / 300 ✅ |
-| Windows x64 — MSVC 14.51 (VS 2026 Build Tools) | MSVC /O2 / float32 | 13 / 13 | 295 / 295 ✅ |
-| Windows x64 — MSVC 14.51 (VS 2026 Build Tools) | MSVC /O2 / float64 | 13 / 13 | 294 / 294 ✅ |
-| ESP32-S3 — Xtensa LX7 / ESP-IDF v5.5.2 | xtensa-esp32s3-elf-gcc -O2 / float32 | 13 / 13 | 548 / 550 ✅ |
-| ARM64 — Raspberry Pi 4B / Raspbian GNU/Linux 13 | gcc 14.2.0 -O2 / float32 | 13 / 13 | 300 / 300 ✅ |
+| x86-64 — Intel i7-13700H / Ubuntu 22.04 | gcc 11.4.0 -O2 / float32 | 13 / 14 ¹ | 300 / 300 ✅ |
+| ARM64 — Apple M4 Pro / macOS 26.2–26.5.1 | Apple clang 21.0.0 -O2 / float32 | 14 / 14 | 329 / 329 ✅ |
+| ARM64 — Apple M1 Pro / macOS 26.2 | Apple clang 17.0.0 -O2 / float32 | 13 / 14 ¹ | 300 / 300 ✅ |
+| Windows x64 — MSVC 14.51 (VS 2026 Build Tools) | MSVC /O2 / float32 | 13 / 14 ¹ | 295 / 295 ✅ |
+| Windows x64 — MSVC 14.51 (VS 2026 Build Tools) | MSVC /O2 / float64 | 14 / 14 | 329 / 329 ✅ ³ |
+| Windows x86 (32-bit, i386) — MSVC 19.51.36246.0 | MSVC /O2 / float32 | 14 / 14 | 329 / 329 ✅ |
+| Linux x86-64 — WSL2 Ubuntu 24.04 | gcc 13.3.0 -O2 / float64 | 14 / 14 | 329 / 329 ✅ |
+| Linux x86 (32-bit) — WSL2 Ubuntu 24.04 | gcc 13.3.0 -m32 -O2 / float32 | 14 / 14 | 329 / 329 ✅ |
+| ESP32-S3 — Xtensa LX7 / ESP-IDF v5.5.2 | xtensa-esp32s3-elf-gcc -O2 / float32 | 14 / 14 ² | 577 / 579 ✅ |
+| ARM64 — Raspberry Pi 4B / Raspbian GNU/Linux 13 | gcc 14.2.0 -O2 / float32 | 14 / 14 | 329 / 329 ✅ |
 
 > ESP32-S3: 2 sketch test cases fail due to `rand()` seed portability across libc implementations — the RSVD algorithm is correct; the test fixture is not portable. See FLAG S-01 in [`validation/results/sketch/sketch.md`](validation/results/sketch/sketch.md).
+>
+> ¹ NTT not validated on this exact platform/toolchain combination; validated separately on Windows x86 (32-bit) and Linux x86/x86-64 via WSL2 instead. See [`validation/results/ntt/ntt.md`](validation/results/ntt/ntt.md).
+> ² ESP32-S3 NTT results (29/29) were collected via a standalone example project ([`examples/esp32_ntt_test/`](examples/esp32_ntt_test/)), not the `tests/esp32_tests/` harness used for the other 13 modules — the two don't share a single test binary, so this row sums both (548+29 pass / 550+29 total).
+> ³ Confirmed by Amir re-running this exact build (`NUMX_USE_DOUBLE`) on 2026-07-03: 329/329. The earlier 294/294 baseline for this config (2026-06-06) was stale — the non-NTT test count on this platform had grown to 300 sometime after that run, independent of NTT, matching the 300-test baseline on every other current platform (300+29=329).
 
 ---
 
