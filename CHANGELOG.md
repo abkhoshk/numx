@@ -70,6 +70,15 @@ Initial public release.
 **Hardware validation**
 - ARM64 Raspberry Pi 4B / Raspbian GNU/Linux 13 / gcc 14.2.0 / float32 — 300/300 tests ✅, Phase 1 & 2 benchmarks captured (see [`validation/hardware/raspberry_pi.md`](validation/hardware/raspberry_pi.md))
 
+**NTT validation (2026-07-03)** — 29 new NTT tests validated across 7 platform/toolchain combinations, 3 of them not previously covered by any validation run (see [`validation/results/ntt/ntt.md`](validation/results/ntt/ntt.md)):
+- ARM64 Apple M4 Pro / macOS / Apple clang 21.0.0 / float32 — 329/329 tests ✅
+- ARM64 Raspberry Pi 4B (addendum to the entry above) — 329/329 tests ✅
+- Windows x64 / MSVC 14.51 / float64 — 329/329 tests ✅ (supersedes the 294/294 figure in the `[0.1.0]` entry below, which was accurate for that release but predates later test growth and the NTT module)
+- Windows x86 (32-bit, i386) / MSVC 19.51 / float32 — 329/329 tests ✅ (new architecture)
+- Linux x86-64 / WSL2 Ubuntu 24.04 / gcc 13.3.0 / float64 — 329/329 tests ✅ (new environment)
+- Linux x86 (32-bit) / WSL2 Ubuntu 24.04 / gcc 13.3.0 / float32 — 329/329 tests ✅ (new environment)
+- ESP32-S3 — 29/29 NTT tests ✅ via a standalone example project ([`examples/esp32_ntt_test/`](examples/esp32_ntt_test/)), separate from the main test harness
+
 **Benchmarks**
 - `benchmarks/bench_win.c` — Windows benchmark suite using QueryPerformanceCounter; covers all 13 modules (Phase 1 & 2)
 - `benchmarks/esp32/` — ESP32 benchmark suite (Phase 1 & 2): `bench_phase1.c`, `bench_phase2.c`, `bench_common.h`

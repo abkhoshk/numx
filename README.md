@@ -63,7 +63,7 @@ All results are device-run, per-formula values with measured error margins — n
 | ARM64 — Apple M4 Pro / macOS 26.2–26.5.1 | Apple clang 21.0.0 -O2 / float32 | 14 / 14 | 329 / 329 ✅ |
 | ARM64 — Apple M1 Pro / macOS 26.2 | Apple clang 17.0.0 -O2 / float32 | 13 / 14 ¹ | 300 / 300 ✅ |
 | Windows x64 — MSVC 14.51 (VS 2026 Build Tools) | MSVC /O2 / float32 | 13 / 14 ¹ | 295 / 295 ✅ |
-| Windows x64 — MSVC 14.51 (VS 2026 Build Tools) | MSVC /O2 / float64 | 14 / 14 | pending ³ |
+| Windows x64 — MSVC 14.51 (VS 2026 Build Tools) | MSVC /O2 / float64 | 14 / 14 | 329 / 329 ✅ ³ |
 | Windows x86 (32-bit, i386) — MSVC 19.51.36246.0 | MSVC /O2 / float32 | 14 / 14 | 329 / 329 ✅ |
 | Linux x86-64 — WSL2 Ubuntu 24.04 | gcc 13.3.0 -O2 / float64 | 14 / 14 | 329 / 329 ✅ |
 | Linux x86 (32-bit) — WSL2 Ubuntu 24.04 | gcc 13.3.0 -m32 -O2 / float32 | 14 / 14 | 329 / 329 ✅ |
@@ -74,7 +74,7 @@ All results are device-run, per-formula values with measured error margins — n
 >
 > ¹ NTT not validated on this exact platform/toolchain combination; validated separately on Windows x86 (32-bit) and Linux x86/x86-64 via WSL2 instead. See [`validation/results/ntt/ntt.md`](validation/results/ntt/ntt.md).
 > ² ESP32-S3 NTT results (29/29) were collected via a standalone example project ([`examples/esp32_ntt_test/`](examples/esp32_ntt_test/)), not the `tests/esp32_tests/` harness used for the other 13 modules — the two don't share a single test binary, so this row sums both (548+29 pass / 550+29 total).
-> ³ [`validation/results/ntt/ntt.md`](validation/results/ntt/ntt.md) reports 329/329 for this row, but that platform's own pre-NTT baseline was 294/294 (2026-06-06) — 294+29 = 323, not 329. Pending Amir re-running this exact build and confirming the real count before this cell is filled in.
+> ³ Confirmed by Amir re-running this exact build (`NUMX_USE_DOUBLE`) on 2026-07-03: 329/329. The earlier 294/294 baseline for this config (2026-06-06) was stale — the non-NTT test count on this platform had grown to 300 sometime after that run, independent of NTT, matching the 300-test baseline on every other current platform (300+29=329).
 
 ---
 

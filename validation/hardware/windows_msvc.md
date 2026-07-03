@@ -33,9 +33,11 @@
 Two additional runs, commit `daf5b9c`, validator Amir Ab Khoshk:
 
 - **Windows x64 / float64** (this profile's existing config): 29 new NTT tests added.
-  `validation/results/ntt/ntt.md` reports 329/329 total, which is inconsistent with this
-  profile's own 294-test float64 baseline above (294+29=323, not 329) — pending
-  confirmation of the real count.
+  `validation/results/ntt/ntt.md` reports 329/329 total; Amir confirmed this by
+  re-running the exact `NUMX_USE_DOUBLE` build, 329 Tests / 0 Failures / 0 Ignored.
+  This supersedes the 294-test baseline in the header above — that count is stale
+  (the non-NTT test total on this platform grew to 300 sometime after the 2026-06-06
+  run, independent of NTT, matching the 300-test baseline everywhere else).
 - **Windows x86 (32-bit, i386)**: a new architecture variant not otherwise covered by
   this profile — built with the Win32 CMake generator (`-A Win32`), confirmed 32-bit via
   `file`. 329/329 tests pass (first full-suite run on this architecture). No benchmark

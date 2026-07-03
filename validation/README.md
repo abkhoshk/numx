@@ -128,7 +128,7 @@ tests/
 | ARM64 (macOS 26.2–26.5.1 / Apple clang 21.0.0 / M4 Pro)  | 329   | 0        | 2026-07-03 |
 | ARM64 (macOS 26.2 / Apple clang 17.0.0 / M1 Pro)         | 300   | 0        | 2026-06-08 |
 | Windows x64 (float32 / MSVC 14.51)                        | 295   | 0        | 2026-06-05 |
-| Windows x64 (float64 / MSVC 14.51)                        | pending ¹ | 0    | 2026-06-06 |
+| Windows x64 (float64 / MSVC 14.51)                        | 329   | 0        | 2026-07-03 ¹ |
 | Windows x86 (32-bit, i386 / MSVC 19.51)                  | 329   | 0        | 2026-07-03 |
 | Linux x86-64 (WSL2 Ubuntu 24.04 / gcc 13.3.0 / float64)  | 329   | 0        | 2026-07-03 |
 | Linux x86 (32-bit, WSL2 Ubuntu 24.04 / gcc 13.3.0)       | 329   | 0        | 2026-07-03 |
@@ -143,9 +143,10 @@ tests/
 > across libc implementations causes a degenerate random projection in one rank-2 test case.
 > The algorithm is correct — rank-1 and seed=0 cases pass with 0.00 error. See
 >
-> ¹ [`validation/results/ntt/ntt.md`](results/ntt/ntt.md) reports 329 for this row, but the
-> pre-NTT baseline for this exact build was 294 (2026-06-06); 294+29 = 323, not 329.
-> Needs Amir to re-run this exact config and confirm the real count before this is filled in.
+> ¹ Confirmed by Amir re-running this exact build on 2026-07-03: 329/329. Supersedes the
+> 294/294 count from the original 2026-06-06 run — the non-NTT test count on this platform
+> grew to 300 sometime after that date, independent of NTT (matching the 300-test baseline
+> on every other current platform: 300+29=329).
 >
 > ² 550/2 (13 modules) from the native `tests/esp32_tests/` harness (2026-05-29); the 29
 > NTT tests were collected separately via [`examples/esp32_ntt_test/`](../examples/esp32_ntt_test/)
