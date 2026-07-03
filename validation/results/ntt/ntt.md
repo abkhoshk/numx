@@ -114,9 +114,119 @@ this validation.
 
 ---
 
-## Linux x86-64 - pending
+## Linux x86-64 - Ubuntu 24.04.4 LTS (WSL2, kernel 6.6.114.1-microsoft-standard-WSL2) / gcc 13.3.0 / float64
+**Validator:** Amir Ab Khoshk | **Date:** 2026-07-03 | **Commit:** daf5b9c
 
-Not yet validated in this session, no Linux x86-64 machine access was available.
+> Built from the root CMakeLists.txt with `CMAKE_C_FLAGS="-DNUMX_USE_DOUBLE -DUNITY_INCLUDE_DOUBLE"`
+> passed on the command line, no existing CMake files edited. `numx_val_bench_phase2`
+> fails to build under float64 (pre-existing float32-only pointer types in that tool), so
+> only the `numx_tests` and `numx_bench` targets were built, both of which build cleanly.
+
+### Test cases
+
+| Test | Result |
+|------|--------|
+| test_ntt_forward_delta | ✅ |
+| test_ntt_forward_zero | ✅ |
+| test_ntt_forward_null | ✅ |
+| test_ntt_inverse_roundtrip_delta | ✅ |
+| test_ntt_inverse_roundtrip_x | ✅ |
+| test_ntt_inverse_roundtrip_x2 | ✅ |
+| test_ntt_inverse_roundtrip_full | ✅ |
+| test_ntt_inverse_null | ✅ |
+| test_ntt_pointwise_mul_identity | ✅ |
+| test_ntt_pointwise_mul_known | ✅ |
+| test_ntt_pointwise_mul_null | ✅ |
+| test_ntt_polymul_delta_identity | ✅ |
+| test_ntt_polymul_x_times_x | ✅ |
+| test_ntt_polymul_wrap_negacyclic | ✅ |
+| test_ntt_polymul_x255_times_x | ✅ |
+| test_ntt_polymul_commutativity | ✅ |
+| test_ntt_polymul_known_linear | ✅ |
+| test_ntt_polymul_random_vs_ref | ✅ |
+| test_ntt_polymul_null | ✅ |
+| test_ntt_reduce_noop_in_range | ✅ |
+| test_ntt_reduce_boundary | ✅ |
+| test_ntt_reduce_null | ✅ |
+| test_ntt_poly_add_basic | ✅ |
+| test_ntt_poly_add_wrap | ✅ |
+| test_ntt_poly_add_null | ✅ |
+| test_ntt_poly_sub_basic | ✅ |
+| test_ntt_poly_sub_wrap | ✅ |
+| test_ntt_poly_add_sub_inverse | ✅ |
+| test_ntt_poly_sub_null | ✅ |
+
+*329 / 329 Unity tests PASS*
+
+### Performance
+
+| Function | N | Total | Per call |
+|----------|---|-------|----------|
+| numx_ntt_forward | 10,000 | 18,980 us | 1,898 ns |
+| numx_ntt_inverse | 10,000 | 11,390 us | 1,139 ns |
+| numx_ntt_polymul | 10,000 | 53,180 us | 5,318 ns |
+| numx_ntt_poly_add | 10,000 | 1,210 us | 121 ns |
+| numx_ntt_poly_sub | 10,000 | 1,310 us | 131 ns |
+
+**RESULTS: 29 PASS / 0 FAIL / 29 TOTAL**
+
+---
+
+## Linux x86 - Ubuntu 24.04.4 LTS (WSL2, kernel 6.6.114.1-microsoft-standard-WSL2) / gcc 13.3.0 (-m32, gcc-multilib) / float32
+**Validator:** Amir Ab Khoshk | **Date:** 2026-07-03 | **Commit:** daf5b9c
+
+> Configured with `CMAKE_C_FLAGS=-m32 CMAKE_EXE_LINKER_FLAGS=-m32` against the root
+> CMakeLists.txt, no existing files edited. Confirmed a 32-bit ELF binary via
+> `file build_linux_x86/numx_tests`. Required `gcc-multilib`/`g++-multilib` to be installed
+> in WSL first (installed by the user with sudo, not by this session).
+
+### Test cases
+
+| Test | Result |
+|------|--------|
+| test_ntt_forward_delta | ✅ |
+| test_ntt_forward_zero | ✅ |
+| test_ntt_forward_null | ✅ |
+| test_ntt_inverse_roundtrip_delta | ✅ |
+| test_ntt_inverse_roundtrip_x | ✅ |
+| test_ntt_inverse_roundtrip_x2 | ✅ |
+| test_ntt_inverse_roundtrip_full | ✅ |
+| test_ntt_inverse_null | ✅ |
+| test_ntt_pointwise_mul_identity | ✅ |
+| test_ntt_pointwise_mul_known | ✅ |
+| test_ntt_pointwise_mul_null | ✅ |
+| test_ntt_polymul_delta_identity | ✅ |
+| test_ntt_polymul_x_times_x | ✅ |
+| test_ntt_polymul_wrap_negacyclic | ✅ |
+| test_ntt_polymul_x255_times_x | ✅ |
+| test_ntt_polymul_commutativity | ✅ |
+| test_ntt_polymul_known_linear | ✅ |
+| test_ntt_polymul_random_vs_ref | ✅ |
+| test_ntt_polymul_null | ✅ |
+| test_ntt_reduce_noop_in_range | ✅ |
+| test_ntt_reduce_boundary | ✅ |
+| test_ntt_reduce_null | ✅ |
+| test_ntt_poly_add_basic | ✅ |
+| test_ntt_poly_add_wrap | ✅ |
+| test_ntt_poly_add_null | ✅ |
+| test_ntt_poly_sub_basic | ✅ |
+| test_ntt_poly_sub_wrap | ✅ |
+| test_ntt_poly_add_sub_inverse | ✅ |
+| test_ntt_poly_sub_null | ✅ |
+
+*329 / 329 Unity tests PASS*
+
+### Performance
+
+| Function | N | Total | Per call |
+|----------|---|-------|----------|
+| numx_ntt_forward | 10,000 | 26,250 us | 2,625 ns |
+| numx_ntt_inverse | 10,000 | 18,010 us | 1,801 ns |
+| numx_ntt_polymul | 10,000 | 76,910 us | 7,691 ns |
+| numx_ntt_poly_add | 10,000 | 1,970 us | 197 ns |
+| numx_ntt_poly_sub | 10,000 | 2,010 us | 201 ns |
+
+**RESULTS: 29 PASS / 0 FAIL / 29 TOTAL**
 
 ---
 
