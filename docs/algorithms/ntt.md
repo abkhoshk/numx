@@ -12,9 +12,14 @@ and CRYSTALS-Dilithium, the NIST post-quantum cryptography standards. Naive
 multiplication in this ring costs O(n^2) = O(65536) operations; the NTT reduces this
 to O(n log n) = O(2048) multiplications.
 
-All arithmetic is exact (no floating-point), constant-time over the data path, and
-allocation-free. The implementation targets embedded systems including ARM Cortex-M,
-RISC-V, and ESP32.
+All arithmetic is exact (no floating-point) and allocation-free. The butterfly
+network and twiddle-table lookups are structurally data-independent: fixed loop
+bounds, no secret-dependent branches or array indexing. The Barrett-reduction
+canonicalization step is the one exception — see the note under
+[Barrett reduction](#barrett-reduction) below before relying on this
+implementation for side-channel-resistant handling of secret key material.
+The implementation targets embedded systems including ARM Cortex-M, RISC-V,
+and ESP32.
 
 ---
 
@@ -113,6 +118,16 @@ $$\text{barrett}(a) = a - \left\lfloor \frac{a \cdot v}{2^{26}} \right\rfloor \c
 For inputs in $[0,\, 2q^2] \approx [0,\, 22\text{M}]$, a single conditional subtract
 brings the result into $[0, q-1]$. The 32-bit intermediate product fits in a 64-bit
 integer (available as `uint64_t` in C99).
+
+> **Side-channel note:** the canonicalization step (`if (r < 0) r += q; if (r >= q)
+> r -= q;` in `priv_barrett`) uses data-dependent conditional branches. On CPUs with
+> branch prediction (most x86-64 and ARM Cortex-A cores), this is not guaranteed to
+> execute in constant time, unlike the branchless technique used in the reference
+> CRYSTALS-Kyber implementation (`a -= q; a += (a >> 15) & q;`). Every other stage of
+> the transform (butterfly network, twiddle-table lookups) has fixed, data-independent
+> control flow. This distinction only matters if you are handling secret polynomial
+> coefficients (e.g. a private key) and need timing-attack resistance — for general
+> numerical use the results are identical either way.
 
 ---
 

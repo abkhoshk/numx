@@ -92,6 +92,11 @@ static const int16_t priv_basemul[128] = {
 /*
  * Barrett reduction mod 3329 for inputs in [0, 2*q^2].
  * v = ceil(2^26/3329) = 20159.
+ *
+ * Note: the canonicalization branches below are data-dependent and not
+ * guaranteed constant-time on branch-predicting CPUs. See "Side-channel
+ * note" in docs/algorithms/ntt.md if you need timing-attack resistance
+ * for secret-dependent inputs.
  */
 static int16_t priv_barrett(int32_t a)
 {

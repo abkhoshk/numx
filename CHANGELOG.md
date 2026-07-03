@@ -14,7 +14,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) — versioning:
 ### Added
 
 **NTT (post-quantum)**
-- `ntt` — negacyclic NTT over Z_3329[x]/(x^256+1) with Kyber/Dilithium parameters; forward NTT, inverse NTT (with normalization), pointwise multiplication (basemul), full polynomial multiplication, and Barrett coefficient reduction; constant-time data path; seven Cooley-Tukey / Gentleman-Sande butterfly stages; precomputed twiddle tables; zero heap allocation; 29 unit tests
+- `ntt` — negacyclic NTT over Z_3329[x]/(x^256+1) with Kyber/Dilithium parameters; forward NTT, inverse NTT (with normalization), pointwise multiplication (basemul), full polynomial multiplication, and Barrett coefficient reduction; data-independent butterfly network and table lookups (see docs/algorithms/ntt.md for a side-channel note on the reduction step); seven Cooley-Tukey / Gentleman-Sande butterfly stages; precomputed twiddle tables; zero heap allocation; 29 unit tests
 
 **Hardware validation** (results in `validation/results/`)
 - ARM64 Raspberry Pi 4B / Raspbian GNU/Linux 13 / gcc 14.2.0 / float32 — 300/300 tests ✅, Phase 1 & 2 benchmarks captured (see [`validation/hardware/raspberry_pi.md`](validation/hardware/raspberry_pi.md))
@@ -35,6 +35,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) — versioning:
 - `tests/x86/` — standalone float32 Unity test build with own `CMakeLists.txt`; decoupled from top-level tree
 - `tests/x64/` — standalone float64 Unity test build with own `CMakeLists.txt`; decoupled from top-level tree
 - `tests/esp32_tests/` — custom test framework for ESP32 (IDF component); per-module test files
+
+**Examples** (`examples/`)
+- `06_ntt.c` — multiply two polynomials in the CRYSTALS-Kyber ring and demonstrate the ring's negacyclic wraparound
 
 ### Fixed
 - `benchmarks/bench_ntt.c`: the "total" column of the benchmark printer divided by
