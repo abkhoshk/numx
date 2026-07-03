@@ -1,0 +1,9 @@
+# Self-contained NTT test/bench harness for ESP32-S3.
+# The NTT test suite keeps several 256-element numx_q15_t buffers on the
+# stack across nested calls (see numx_ntt_polymul's a/b/tmp temporaries and
+# the poly_mul_ref/rand_poly test helpers), so the default 3.5 KB main task
+# stack is not enough to run all 29 tests plus benchmarks without overflow.
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=16384
+
+# UART console at a common baud rate for capturing test/bench output.
+CONFIG_ESP_CONSOLE_UART_BAUDRATE=115200

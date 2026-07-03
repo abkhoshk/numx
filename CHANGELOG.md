@@ -5,6 +5,56 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) — versioning:
 
 ---
 
+## [Unreleased]
+
+---
+
+## [0.2.0] — 2026-07-03
+
+### Added
+
+**NTT (post-quantum)**
+- `ntt` — negacyclic NTT over Z_3329[x]/(x^256+1) with Kyber/Dilithium parameters; forward NTT, inverse NTT (with normalization), pointwise multiplication (basemul), full polynomial multiplication, and Barrett coefficient reduction; data-independent butterfly network and table lookups (see docs/algorithms/ntt.md for a side-channel note on the reduction step); seven Cooley-Tukey / Gentleman-Sande butterfly stages; precomputed twiddle tables; zero heap allocation; 29 unit tests
+
+**Hardware validation** (results in `validation/results/`)
+- ARM64 Raspberry Pi 4B / Raspbian GNU/Linux 13 / gcc 14.2.0 / float32 — 300/300 tests ✅, Phase 1 & 2 benchmarks captured (see [`validation/hardware/raspberry_pi.md`](validation/hardware/raspberry_pi.md))
+- **NTT validation (2026-07-03)** — 29 new NTT tests validated across 7 platform/toolchain combinations, 3 of them not previously covered by any validation run (see [`validation/results/ntt/ntt.md`](validation/results/ntt/ntt.md)):
+  - ARM64 Apple M4 Pro / macOS / Apple clang 21.0.0 / float32 — 329/329 tests ✅
+  - ARM64 Raspberry Pi 4B (addendum to the entry above) — 329/329 tests ✅
+  - Windows x64 / MSVC 14.51 / float64 — 329/329 tests ✅ (supersedes the 294/294 figure in the `[0.1.0]` entry below, which was accurate for that release but predates later test growth and the NTT module)
+  - Windows x86 (32-bit, i386) / MSVC 19.51 / float32 — 329/329 tests ✅ (new architecture)
+  - Linux x86-64 / WSL2 Ubuntu 24.04 / gcc 13.3.0 / float64 — 329/329 tests ✅ (new environment)
+  - Linux x86 (32-bit) / WSL2 Ubuntu 24.04 / gcc 13.3.0 / float32 — 329/329 tests ✅ (new environment)
+  - ESP32-S3 — 29/29 NTT tests ✅ via a standalone example project ([`examples/esp32_ntt_test/`](examples/esp32_ntt_test/)), separate from the main test harness
+
+**Benchmarks**
+- `benchmarks/bench_win.c` — Windows benchmark suite using QueryPerformanceCounter; covers all 13 modules (Phase 1 & 2)
+- `benchmarks/esp32/` — ESP32 benchmark suite (Phase 1 & 2): `bench_phase1.c`, `bench_phase2.c`, `bench_common.h`
+
+**Test infrastructure**
+- `tests/x86/` — standalone float32 Unity test build with own `CMakeLists.txt`; decoupled from top-level tree
+- `tests/x64/` — standalone float64 Unity test build with own `CMakeLists.txt`; decoupled from top-level tree
+- `tests/esp32_tests/` — custom test framework for ESP32 (IDF component); per-module test files
+
+**Examples** (`examples/`)
+- `06_ntt.c` — multiply two polynomials in the CRYSTALS-Kyber ring and demonstrate the ring's negacyclic wraparound
+
+### Fixed
+- `benchmarks/bench_ntt.c`: the "total" column of the benchmark printer divided by
+  the iteration count twice, printing per-call-in-µs mislabeled as the total elapsed
+  time. Corrected; "per call" was unaffected.
+- `CHANGELOG.md`: NTT unit test count corrected from 20 to 29.
+- `docs/algorithms/ntt.md`: Phase ID corrected from `P3.12` to `P3.04`, consistent
+  with the `P3.01`–`P3.03` sequence (autodiff, compressed_sensing, sketch).
+
+### Known gaps
+- NTT is not wired into `tests/x86/`, `tests/x64/`, or `tests/esp32_tests/` — those
+  standalone/native harnesses still only cover the 13 pre-NTT modules. The Windows
+  x86 (32-bit) and Linux (WSL2) NTT validation runs above built from the root
+  `CMakeLists.txt` directly rather than these standalone trees.
+
+---
+
 ## [0.1.0] — 2026-06-10
 
 Initial public release.
@@ -63,25 +113,5 @@ Initial public release.
 
 ---
 
-## [Unreleased]
-
-### Added
-
-**Hardware validation**
-- ARM64 Raspberry Pi 4B / Raspbian GNU/Linux 13 / gcc 14.2.0 / float32 — 300/300 tests ✅, Phase 1 & 2 benchmarks captured (see [`validation/hardware/raspberry_pi.md`](validation/hardware/raspberry_pi.md))
-
-**Benchmarks**
-- `benchmarks/bench_win.c` — Windows benchmark suite using QueryPerformanceCounter; covers all 13 modules (Phase 1 & 2)
-- `benchmarks/esp32/` — ESP32 benchmark suite (Phase 1 & 2): `bench_phase1.c`, `bench_phase2.c`, `bench_common.h`
-
-**Test infrastructure**
-- `tests/x86/` — standalone float32 Unity test build with own `CMakeLists.txt`; decoupled from top-level tree
-- `tests/x64/` — standalone float64 Unity test build with own `CMakeLists.txt`; decoupled from top-level tree
-- `tests/esp32_tests/` — custom test framework for ESP32 (IDF component); per-module test files
-
-**NTT (post-quantum)**
-- `ntt` — negacyclic NTT over Z_3329[x]/(x^256+1) with Kyber/Dilithium parameters; forward NTT, inverse NTT (with normalization), pointwise multiplication (basemul), full polynomial multiplication, and Barrett coefficient reduction; constant-time data path; seven Cooley-Tukey / Gentleman-Sande butterfly stages; precomputed twiddle tables; zero heap allocation; 20 unit tests
-
----
-
+[0.2.0]: https://github.com/NIKX-Tech/numx/releases/tag/v0.2.0
 [0.1.0]: https://github.com/NIKX-Tech/numx/releases/tag/v0.1.0

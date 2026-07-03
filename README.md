@@ -49,7 +49,7 @@ Every function is reentrant, allocation-free, and returns a typed status code. T
 | [**autodiff**](docs/algorithms/autodiff.md) | forward-mode (dual numbers), reverse-mode (static tape) | ✅ complete |
 | [**compressed_sensing**](docs/algorithms/compressed_sensing.md) | OMP, ISTA | ✅ complete |
 | [**sketch**](docs/algorithms/sketch.md) | randomized SVD (Halko-Martinsson-Tropp) | ✅ complete |
-| [**ntt**](docs/algorithms/ntt.md) | Number Theoretic Transform (constant-time, Kyber/Dilithium params) | ✅ complete |
+| [**ntt**](docs/algorithms/ntt.md) | Number Theoretic Transform (Kyber/Dilithium params) | ✅ complete |
 
 ---
 
@@ -59,15 +59,22 @@ All results are device-run, per-formula values with measured error margins — n
 
 | Platform | Toolchain | Modules | Tests |
 |---|---|---|---|
-| x86-64 — Intel i7-13700H / Ubuntu 22.04 | gcc 11.4.0 -O2 / float32 | 13 / 13 | 300 / 300 ✅ |
-| ARM64 — Apple M4 Pro / macOS 26.2 | Apple clang 21.0.0 -O2 / float32 | 13 / 13 | 300 / 300 ✅ |
-| ARM64 — Apple M1 Pro / macOS 26.2 | Apple clang 17.0.0 -O2 / float32 | 13 / 13 | 300 / 300 ✅ |
-| Windows x64 — MSVC 14.51 (VS 2026 Build Tools) | MSVC /O2 / float32 | 13 / 13 | 295 / 295 ✅ |
-| Windows x64 — MSVC 14.51 (VS 2026 Build Tools) | MSVC /O2 / float64 | 13 / 13 | 294 / 294 ✅ |
-| ESP32-S3 — Xtensa LX7 / ESP-IDF v5.5.2 | xtensa-esp32s3-elf-gcc -O2 / float32 | 13 / 13 | 548 / 550 ✅ |
-| ARM64 — Raspberry Pi 4B / Raspbian GNU/Linux 13 | gcc 14.2.0 -O2 / float32 | 13 / 13 | 300 / 300 ✅ |
+| x86-64 — Intel i7-13700H / Ubuntu 22.04 | gcc 11.4.0 -O2 / float32 | 13 / 14 ¹ | 300 / 300 ✅ |
+| ARM64 — Apple M4 Pro / macOS 26.2–26.5.1 | Apple clang 21.0.0 -O2 / float32 | 14 / 14 | 329 / 329 ✅ |
+| ARM64 — Apple M1 Pro / macOS 26.2 | Apple clang 17.0.0 -O2 / float32 | 13 / 14 ¹ | 300 / 300 ✅ |
+| Windows x64 — MSVC 14.51 (VS 2026 Build Tools) | MSVC /O2 / float32 | 13 / 14 ¹ | 295 / 295 ✅ |
+| Windows x64 — MSVC 14.51 (VS 2026 Build Tools) | MSVC /O2 / float64 | 14 / 14 | 329 / 329 ✅ ³ |
+| Windows x86 (32-bit, i386) — MSVC 19.51.36246.0 | MSVC /O2 / float32 | 14 / 14 | 329 / 329 ✅ |
+| Linux x86-64 — WSL2 Ubuntu 24.04 | gcc 13.3.0 -O2 / float64 | 14 / 14 | 329 / 329 ✅ |
+| Linux x86 (32-bit) — WSL2 Ubuntu 24.04 | gcc 13.3.0 -m32 -O2 / float32 | 14 / 14 | 329 / 329 ✅ |
+| ESP32-S3 — Xtensa LX7 / ESP-IDF v5.5.2 | xtensa-esp32s3-elf-gcc -O2 / float32 | 14 / 14 ² | 577 / 579 ✅ |
+| ARM64 — Raspberry Pi 4B / Raspbian GNU/Linux 13 | gcc 14.2.0 -O2 / float32 | 14 / 14 | 329 / 329 ✅ |
 
 > ESP32-S3: 2 sketch test cases fail due to `rand()` seed portability across libc implementations — the RSVD algorithm is correct; the test fixture is not portable. See FLAG S-01 in [`validation/results/sketch/sketch.md`](validation/results/sketch/sketch.md).
+>
+> ¹ NTT not validated on this exact platform/toolchain combination; validated separately on Windows x86 (32-bit) and Linux x86/x86-64 via WSL2 instead. See [`validation/results/ntt/ntt.md`](validation/results/ntt/ntt.md).
+> ² ESP32-S3 NTT results (29/29) were collected via a standalone example project ([`examples/esp32_ntt_test/`](examples/esp32_ntt_test/)), not the `tests/esp32_tests/` harness used for the other 13 modules — the two don't share a single test binary, so this row sums both (548+29 pass / 550+29 total).
+> ³ Confirmed by Amir re-running this exact build (`NUMX_USE_DOUBLE`) on 2026-07-03: 329/329. The earlier 294/294 baseline for this config (2026-06-06) was stale — the non-NTT test count on this platform had grown to 300 sometime after that run, independent of NTT, matching the 300-test baseline on every other current platform (300+29=329).
 
 ---
 
@@ -79,7 +86,7 @@ All results are device-run, per-formula values with measured error margins — n
 include(FetchContent)
 FetchContent_Declare(numx
   GIT_REPOSITORY https://github.com/NIKX-Tech/numx.git
-  GIT_TAG        v0.1.0
+  GIT_TAG        v0.2.0
 )
 FetchContent_MakeAvailable(numx)
 target_link_libraries(my_target PRIVATE numx::numx)
@@ -151,13 +158,13 @@ Per-call averages measured on physical hardware. Full tables: [`validation/resul
 | `numx_stats_median` n=128 | 6.6 µs | 204 ns ¹ | 1.1 ms |
 | `numx_fft_f32` N=64 | 3.6 µs | 17.9 µs | 2.6 ms |
 | `numx_autodiff` fwd chain-10 | 20 ns | 102 ns | 358 ns |
-| `numx_ntt_forward` n=256 | -- | 937 ns ² | -- |
-| `numx_ntt_inverse` n=256 | -- | 601 ns ² | -- |
-| `numx_ntt_polymul` n=256 | -- | 2.7 µs ² | -- |
-| `numx_ntt_poly_add` n=256 | -- | 41 ns ² | -- |
+| `numx_ntt_forward` n=256 | 1.9 µs ² | 26.6 µs | 767 µs |
+| `numx_ntt_inverse` n=256 | 1.1 µs ² | 22.0 µs | 673 µs |
+| `numx_ntt_polymul` n=256 | 5.3 µs ² | 81.3 µs | 2.4 ms |
+| `numx_ntt_poly_add` n=256 | 121 ns ² | 2.4 µs | 72.3 µs |
 
 > ¹ RPi benchmark used smaller inputs (n=4, 2×2, npts=2, n=8 respectively) — see [`validation/hardware/raspberry_pi.md`](validation/hardware/raspberry_pi.md) for exact parameters.
-> ² NTT benchmarks measured on ARM64 Apple M4 Pro / macOS / Apple clang -O2 (Release).
+> ² NTT x86-64 column measured on WSL2 Ubuntu 24.04 / gcc 13.3.0 (not the native Ubuntu 22.04 / gcc 11.4 host used for the other rows) — see [`validation/results/ntt/ntt.md`](validation/results/ntt/ntt.md). NTT operates on fixed-point `numx_q15_t`, unaffected by the float32/float64 build flag.
 
 ---
 

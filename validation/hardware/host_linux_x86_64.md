@@ -23,3 +23,7 @@
 - Benchmarks run in userspace; no CPU pinning or real-time priority.
   Results are indicative; expect ±10% variance between runs.
 - ESP32 results must be collected separately on physical hardware.
+- NTT was not validated on this exact host (native Ubuntu 22.04 / gcc 11.4.0). It was
+  validated on Linux x86-64 and Linux x86 (32-bit) via WSL2 Ubuntu 24.04 / gcc 13.3.0
+  instead (2026-07-03, commit `daf5b9c`) — see
+  [`validation/results/ntt/ntt.md`](../results/ntt/ntt.md).
