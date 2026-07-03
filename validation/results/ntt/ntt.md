@@ -357,3 +357,65 @@ Note: N=1,000 iterations (not 10,000) to avoid the task watchdog on ESP32-S3.
 | numx_ntt_poly_sub | 1,000 | 78,679 us | 78,679 ns |
 
 **RESULTS: 29 PASS / 0 FAIL / 29 TOTAL**
+
+---
+
+## ARM64 — macOS 26.5.1 / Apple M4 Pro / Apple clang 21.0.0 / float32
+**Validator:** Erfan Jazeb Nikoo | **Date:** 2026-07-03 | **Commit:** c397429
+
+> Built from the root CMakeLists.txt (Release), unmodified. `clock_gettime(CLOCK_MONOTONIC)`
+> timer via `benchmarks/bench_ntt.c`. NTT operates on `numx_q15_t` (int16_t) regardless of
+> `NUMX_USE_DOUBLE`, so the float32/float64 build flag does not affect these results.
+
+### Test cases
+
+| Test | Result |
+|------|--------|
+| test_ntt_forward_delta | ✅ |
+| test_ntt_forward_zero | ✅ |
+| test_ntt_forward_null | ✅ |
+| test_ntt_inverse_roundtrip_delta | ✅ |
+| test_ntt_inverse_roundtrip_x | ✅ |
+| test_ntt_inverse_roundtrip_x2 | ✅ |
+| test_ntt_inverse_roundtrip_full | ✅ |
+| test_ntt_inverse_null | ✅ |
+| test_ntt_pointwise_mul_identity | ✅ |
+| test_ntt_pointwise_mul_known | ✅ |
+| test_ntt_pointwise_mul_null | ✅ |
+| test_ntt_polymul_delta_identity | ✅ |
+| test_ntt_polymul_x_times_x | ✅ |
+| test_ntt_polymul_wrap_negacyclic | ✅ |
+| test_ntt_polymul_x255_times_x | ✅ |
+| test_ntt_polymul_commutativity | ✅ |
+| test_ntt_polymul_known_linear | ✅ |
+| test_ntt_polymul_random_vs_ref | ✅ |
+| test_ntt_polymul_null | ✅ |
+| test_ntt_reduce_noop_in_range | ✅ |
+| test_ntt_reduce_boundary | ✅ |
+| test_ntt_reduce_null | ✅ |
+| test_ntt_poly_add_basic | ✅ |
+| test_ntt_poly_add_wrap | ✅ |
+| test_ntt_poly_add_null | ✅ |
+| test_ntt_poly_sub_basic | ✅ |
+| test_ntt_poly_sub_wrap | ✅ |
+| test_ntt_poly_add_sub_inverse | ✅ |
+| test_ntt_poly_sub_null | ✅ |
+
+*329 / 329 Unity tests PASS*
+
+### Performance
+
+| Function | N | Total | Per call |
+|----------|---|-------|----------|
+| numx_ntt_forward | 10,000 | 11,171 us | 1,117 ns |
+| numx_ntt_inverse | 10,000 | 6,607 us | 660 ns |
+| numx_ntt_polymul | 10,000 | 29,145 us | 2,914 ns |
+| numx_ntt_poly_add | 10,000 | 485 us | 48 ns |
+| numx_ntt_poly_sub | 10,000 | 545 us | 54 ns |
+
+> Fixed a units bug in `benchmarks/bench_ntt.c`'s `bprint()` while running this validation:
+> the "total" column divided by `n` twice, printing per-call-in-µs instead of the true
+> total. Corrected to `total = elapsed_ns / 1000.0` (no `/n`); "per call" was unaffected.
+> Numbers above are from the corrected build.
+
+**RESULTS: 29 PASS / 0 FAIL / 29 TOTAL**
