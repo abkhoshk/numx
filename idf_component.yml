@@ -3,12 +3,13 @@
 
 cmake_minimum_required: "3.16"
 
-version: "0.1.0"
+version: "0.2.0"
 description: >
   Scientific-grade numerical computing for ESP32 (and all embedded targets).
   Pure C99, zero dynamic allocation, zero external dependencies. Provides
   linear algebra, signal processing, FFT, ODE solvers, automatic
-  differentiation, compressed sensing, and randomized SVD.
+  differentiation, compressed sensing, randomized SVD, and post-quantum NTT
+  (CRYSTALS-Kyber/Dilithium).
 
 url: "https://numx.dev"
 repository: "https://github.com/NIKX-Tech/numx"
@@ -34,6 +35,9 @@ tags:
   - compressed-sensing
   - c99
   - embedded
+  - ntt
+  - post-quantum
+  - cryptography
 
 dependencies:
   idf: ">=5.0"
