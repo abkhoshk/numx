@@ -27,3 +27,18 @@
   result files for per-module detail.
 - Benchmarks run in a Windows user-mode process; no CPU affinity or real-time
   priority. Results are indicative; expect ±10% variance between runs.
+
+## NTT addendum (2026-07-03)
+
+Two additional runs, commit `daf5b9c`, validator Amir Ab Khoshk:
+
+- **Windows x64 / float64** (this profile's existing config): 29 new NTT tests added.
+  `validation/results/ntt/ntt.md` reports 329/329 total, which is inconsistent with this
+  profile's own 294-test float64 baseline above (294+29=323, not 329) — pending
+  confirmation of the real count.
+- **Windows x86 (32-bit, i386)**: a new architecture variant not otherwise covered by
+  this profile — built with the Win32 CMake generator (`-A Win32`), confirmed 32-bit via
+  `file`. 329/329 tests pass (first full-suite run on this architecture). No benchmark
+  numbers: `benchmarks/bench_win.c` doesn't call `numx_bench_ntt()`.
+
+Full detail: [`validation/results/ntt/ntt.md`](../results/ntt/ntt.md).
