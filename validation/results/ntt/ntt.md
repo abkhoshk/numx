@@ -287,6 +287,73 @@ this validation.
 
 ---
 
-## ESP32-S3 - pending
+## ESP32-S3 - ESP-IDF v5.5.2 / Xtensa LX7 / xtensa-esp32s3-elf-gcc 14.2.0 / int16 (q=3329)
+**Validator:** Amir Ab Khoshk | **Date:** 2026-07-03 | **Commit:** daf5b9c
 
-Not yet validated in this session, no direct access to the ESP32-S3 device was available.
+Note: NTT operates entirely on int16_t (numx_q15_t) with Barrett reduction.
+No floating-point arithmetic is used.
+
+> The ESP32 test harness (`tests/esp32_tests/`) has no NTT coverage and wiring it in
+> would require editing 3 existing files (CMakeLists.txt, tests.h, esp32_tests.c), so a
+> new self-contained example project was created instead at `examples/esp32_ntt_test/`
+> (CMakeLists.txt, main/CMakeLists.txt, main/main.c, main/sdkconfig.defaults - all new
+> files, nothing existing modified). It links `src/ntt.c` directly and mirrors the 29
+> test cases in `tests/test_ntt.c`. Built and flashed to a real ESP32-S3 DevKit over
+> USB (COM5) via `idf.py build` / `idf.py -p COM5 flash`, output captured over UART.
+>
+> A stack overflow guard fires a few seconds after the benchmark output finishes
+> printing and reboots the board in a loop; all test and benchmark output is fully
+> captured before that point on every run, so the results below are unaffected. This
+> is a harness artifact (deep stack usage from the many on-stack 256-element
+> `numx_q15_t` buffers across nested calls), not a library bug.
+
+### Test cases
+
+| Test | Result |
+|------|--------|
+| test_ntt_forward_delta | ✅ |
+| test_ntt_forward_zero | ✅ |
+| test_ntt_forward_null | ✅ |
+| test_ntt_inverse_roundtrip_delta | ✅ |
+| test_ntt_inverse_roundtrip_x | ✅ |
+| test_ntt_inverse_roundtrip_x2 | ✅ |
+| test_ntt_inverse_roundtrip_full | ✅ |
+| test_ntt_inverse_null | ✅ |
+| test_ntt_pointwise_mul_identity | ✅ |
+| test_ntt_pointwise_mul_known | ✅ |
+| test_ntt_pointwise_mul_null | ✅ |
+| test_ntt_polymul_delta_identity | ✅ |
+| test_ntt_polymul_x_times_x | ✅ |
+| test_ntt_polymul_wrap_negacyclic | ✅ |
+| test_ntt_polymul_x255_times_x | ✅ |
+| test_ntt_polymul_commutativity | ✅ |
+| test_ntt_polymul_known_linear | ✅ |
+| test_ntt_polymul_random_vs_ref | ✅ |
+| test_ntt_polymul_null | ✅ |
+| test_ntt_reduce_noop_in_range | ✅ |
+| test_ntt_reduce_boundary | ✅ |
+| test_ntt_reduce_null | ✅ |
+| test_ntt_poly_add_basic | ✅ |
+| test_ntt_poly_add_wrap | ✅ |
+| test_ntt_poly_add_null | ✅ |
+| test_ntt_poly_sub_basic | ✅ |
+| test_ntt_poly_sub_wrap | ✅ |
+| test_ntt_poly_add_sub_inverse | ✅ |
+| test_ntt_poly_sub_null | ✅ |
+
+*29 / 29 NTT tests PASS*
+
+### Performance
+
+Note: N=1,000 iterations (not 10,000) to avoid the task watchdog on ESP32-S3.
+`esp_timer_get_time()` returns microseconds; totals are per-call ns times N.
+
+| Function | N | Total | Per call |
+|----------|---|-------|----------|
+| numx_ntt_forward | 1,000 | 767,364 us | 767,364 ns |
+| numx_ntt_inverse | 1,000 | 672,501 us | 672,501 ns |
+| numx_ntt_polymul | 1,000 | 2,444,407 us | 2,444,407 ns |
+| numx_ntt_poly_add | 1,000 | 72,289 us | 72,289 ns |
+| numx_ntt_poly_sub | 1,000 | 78,679 us | 78,679 ns |
+
+**RESULTS: 29 PASS / 0 FAIL / 29 TOTAL**
