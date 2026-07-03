@@ -290,9 +290,9 @@ this validation.
 ## ESP32-S3 - ESP-IDF v5.5.2 / Xtensa LX7 / xtensa-esp32s3-elf-gcc 14.2.0 / int16 (q=3329)
 **Validator:** Amir Ab Khoshk | **Date:** 2026-07-03 | **Commit:** daf5b9c
 
-Note: NTT operates entirely on int16_t (numx_q15_t) with Barrett reduction.
-No floating-point arithmetic is used.
-
+> NTT operates entirely on int16_t (numx_q15_t) with Barrett reduction, no floating-point
+> arithmetic is used.
+>
 > The ESP32 test harness (`tests/esp32_tests/`) has no NTT coverage and wiring it in
 > would require editing 3 existing files (CMakeLists.txt, tests.h, esp32_tests.c), so a
 > new self-contained example project was created instead at `examples/esp32_ntt_test/`
