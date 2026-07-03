@@ -230,9 +230,60 @@ this validation.
 
 ---
 
-## ARM64 - Raspberry Pi 4 - pending
+## ARM64 - Raspbian GNU/Linux 13 (trixie) / Raspberry Pi 4 Model B / gcc 14.2.0 / float32
+**Validator:** Amir Ab Khoshk | **Date:** 2026-07-03 | **Commit:** daf5b9c
 
-Not yet validated in this session, no direct access to the Raspberry Pi 4 was available.
+> Validated over SSH (`sellol@raspberrypi.local`), kernel 6.18.33+rpt-rpi-v8 aarch64.
+> Repo was on an older branch, fetched and fast-forwarded to `main` at daf5b9c first.
+> Built from the root CMakeLists.txt, unmodified, Release config.
+
+### Test cases
+
+| Test | Result |
+|------|--------|
+| test_ntt_forward_delta | ✅ |
+| test_ntt_forward_zero | ✅ |
+| test_ntt_forward_null | ✅ |
+| test_ntt_inverse_roundtrip_delta | ✅ |
+| test_ntt_inverse_roundtrip_x | ✅ |
+| test_ntt_inverse_roundtrip_x2 | ✅ |
+| test_ntt_inverse_roundtrip_full | ✅ |
+| test_ntt_inverse_null | ✅ |
+| test_ntt_pointwise_mul_identity | ✅ |
+| test_ntt_pointwise_mul_known | ✅ |
+| test_ntt_pointwise_mul_null | ✅ |
+| test_ntt_polymul_delta_identity | ✅ |
+| test_ntt_polymul_x_times_x | ✅ |
+| test_ntt_polymul_wrap_negacyclic | ✅ |
+| test_ntt_polymul_x255_times_x | ✅ |
+| test_ntt_polymul_commutativity | ✅ |
+| test_ntt_polymul_known_linear | ✅ |
+| test_ntt_polymul_random_vs_ref | ✅ |
+| test_ntt_polymul_null | ✅ |
+| test_ntt_reduce_noop_in_range | ✅ |
+| test_ntt_reduce_boundary | ✅ |
+| test_ntt_reduce_null | ✅ |
+| test_ntt_poly_add_basic | ✅ |
+| test_ntt_poly_add_wrap | ✅ |
+| test_ntt_poly_add_null | ✅ |
+| test_ntt_poly_sub_basic | ✅ |
+| test_ntt_poly_sub_wrap | ✅ |
+| test_ntt_poly_add_sub_inverse | ✅ |
+| test_ntt_poly_sub_null | ✅ |
+
+*329 / 329 Unity tests PASS*
+
+### Performance
+
+| Function | N | Total | Per call |
+|----------|---|-------|----------|
+| numx_ntt_forward | 10,000 | 265,890 us | 26,589 ns |
+| numx_ntt_inverse | 10,000 | 219,660 us | 21,966 ns |
+| numx_ntt_polymul | 10,000 | 813,320 us | 81,332 ns |
+| numx_ntt_poly_add | 10,000 | 24,100 us | 2,410 ns |
+| numx_ntt_poly_sub | 10,000 | 27,370 us | 2,737 ns |
+
+**RESULTS: 29 PASS / 0 FAIL / 29 TOTAL**
 
 ---
 
