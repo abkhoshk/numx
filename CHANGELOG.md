@@ -9,7 +9,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) — versioning:
 
 ---
 
-## [0.2.0] — 2026-07-03
+## [1.0.0] — 2026-07-03
+
+First stable release. Completes the full 4-phase plan (foundation, signal
+processing, unicorn algorithms, hardening) with the addition of the NTT
+(post-quantum) module. 14 modules, 329 tests, validated across 10
+platform/toolchain combinations.
 
 ### Added
 
@@ -113,5 +118,5 @@ Initial public release.
 
 ---
 
-[0.2.0]: https://github.com/NIKX-Tech/numx/releases/tag/v0.2.0
+[1.0.0]: https://github.com/NIKX-Tech/numx/releases/tag/v1.0.0
 [0.1.0]: https://github.com/NIKX-Tech/numx/releases/tag/v0.1.0

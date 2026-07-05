@@ -86,7 +86,7 @@ All results are device-run, per-formula values with measured error margins — n
 include(FetchContent)
 FetchContent_Declare(numx
   GIT_REPOSITORY https://github.com/NIKX-Tech/numx.git
-  GIT_TAG        v0.2.0
+  GIT_TAG        v1.0.0
 )
 FetchContent_MakeAvailable(numx)
 target_link_libraries(my_target PRIVATE numx::numx)
