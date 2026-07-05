@@ -62,8 +62,8 @@ typedef numx_real_t (*numx_func1d_t)(numx_real_t x);
 #define NUMX_PI 3.14159265358979323846f
 #endif
 
-#define NUMX_VERSION_MAJOR 0
-#define NUMX_VERSION_MINOR 2
+#define NUMX_VERSION_MAJOR 1
+#define NUMX_VERSION_MINOR 0
 #define NUMX_VERSION_PATCH 0
 
 #endif /* NUMX_TYPES_H */

@@ -3,7 +3,7 @@
 
 cmake_minimum_required: "3.16"
 
-version: "0.2.0"
+version: "1.0.0"
 description: >
   Scientific-grade numerical computing for ESP32 (and all embedded targets).
   Pure C99, zero dynamic allocation, zero external dependencies. Provides

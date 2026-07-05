@@ -1,6 +1,6 @@
 {
   "name": "numx",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Scientific-grade numerical computing for embedded systems. Zero dependencies, zero dynamic allocation, pure C99. Linear algebra, signal processing, FFT, ODE solvers, automatic differentiation, compressed sensing, post-quantum NTT (CRYSTALS-Kyber/Dilithium), and more.",
   "keywords": [
     "numerical", "math", "linear-algebra", "signal-processing", "fft",
